@@ -32,8 +32,9 @@ public class Landsat implements Trackable {
      * Default constructor for the {@code Landsat} class.
      * Initializes the Landsat satellite and begins tracking its position.
      */
-    public Landsat() {
+    public Landsat(int cloudCoverage) {
         track(); //Sets the current position when object is created
+        this.cloudCoverage = cloudCoverage;
     }
 
     /**
