@@ -33,4 +33,17 @@ public class Location {
     public double getLongitude() {
         return longitude;
     }
+
+    /**
+     * Compares this location with another location to determine if they
+     * represent the same coordinates.
+     *
+     * @param other The other location to compare with.
+     * @return {@code true} if both locations have the same coordinates,
+     * {@code false} otherwise.
+     */
+    public boolean isSameLocation(Location other) {
+        return this.latitude == other.getLatitude() &&
+                this.longitude == other.getLongitude();
+    }
 }
