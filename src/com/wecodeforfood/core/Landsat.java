@@ -4,7 +4,14 @@ import com.wecodeforfood.util.Trackable;
 
 
 /**
- * The {@code Landsat} class represents the LANDSAT satellite
+ * The {@code Landsat} class represents the LANDSAT satellite.
+ *
+ * <p> The class grants the user access to get time until the satellite
+ * reaches a specified target location, to display the data of a specified
+ * location, and send notifications to the user indicating when the LANDSAT
+ * satellite will reach the location
+ * </p>
+ *
  * This class implements the {@link Trackable} interface to enable tracking
  * of the satellite's current position and other related functionalities.
  *
@@ -16,12 +23,10 @@ import com.wecodeforfood.util.Trackable;
 public class Landsat implements Trackable {
 
     // Instance variables
-    private Location currentPosition;
+    private SatelliteLocation currentPosition;
     private int cloudCoverage;
 
-
     // CONSTRUCTOR
-
     /**
      * Default constructor for the {@code Landsat} class.
      * Initializes the Landsat satellite and begins tracking its position.
@@ -109,5 +114,15 @@ public class Landsat implements Trackable {
         // Suppose you know that the satellite will be at coords x,y after 20
         // hours 30 mins. How will I use it to set the current position and
         // calculate distance. All up to you guys to decide
+    }
+
+
+    // GETTERS
+    public SatelliteLocation getCurrentPosition() {
+        return currentPosition;
+    }
+
+    public int getCloudCoverage() {
+        return cloudCoverage;
     }
 }

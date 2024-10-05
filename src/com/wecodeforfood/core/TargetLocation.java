@@ -2,27 +2,26 @@ package com.wecodeforfood.core;
 
 /**
  * The {@code TargetLocation} class represents a geographic location defined
- * by its latitude, longitude and also has a radius (10 km)
- *
- * <p>This class extends the {@link Location} class, adding the ability
- * to define a search area around the specified location using a radius.
- *</p>
+ * by its latitude, longitude and also has a radius (15 km).
  *
  * @author WeCodeForFood (Mac)
  * @since   1.0
- *
- * @see com.wecodeforfood.core.Location
  */
-public class TargetLocation extends Location{
+public class TargetLocation {
+    //Instance variables
+    private final double latitude;
+    private final double longitude;
     private int radius = 15;
 
     // CONSTRUCTORS
     public TargetLocation(double latitude, double longitude) {
-        super(latitude, longitude);
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public TargetLocation(double latitude, double longitude, int radius) {
-        super(latitude, longitude);
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.radius = radius;
     }
 
@@ -42,7 +41,7 @@ public class TargetLocation extends Location{
      * @return {@code true} if the location is within the radius, {@code false}
      * otherwise.
      */
-    public boolean isWithinRadius(Location location) {
+    public boolean isWithinRadius(SatelliteLocation location) {
         // Use haversine formula or simple approximation to calculate the distance
         // between this target location and the other location, and check if
         // it's within the radius.
@@ -56,12 +55,12 @@ public class TargetLocation extends Location{
      * @param location The other location to calculate the distance to.
      * @return The distance in kilometers.
      */
-    public double getDistanceTo(Location location) {
+    public double getDistanceTo(SatelliteLocation location) {
         // Calculate the distance using the haversine formula
-        double dLat = Math.toRadians(location.getLatitude() - this.getLatitude());
-        double dLon = Math.toRadians(location.getLongitude() - this.getLongitude());
+        double dLat = Math.toRadians(location.getLatitude() - latitude);
+        double dLon = Math.toRadians(location.getLongitude() - longitude);
 
-        double lat1 = Math.toRadians(this.getLatitude());
+        double lat1 = Math.toRadians(this.latitude);
         double lat2 = Math.toRadians(location.getLatitude());
 
         double a = Math.pow(Math.sin(dLat / 2), 2)
