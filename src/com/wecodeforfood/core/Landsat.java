@@ -31,18 +31,17 @@ public class Landsat implements Trackable {
     }
 
     /**
-     * Calculates the distance between the Landsat satellite's current position
-     * and a specified target location.
-     *
-     * @param targetLocation The target location to measure the distance to.
-     * @return The distance in kilometers from the current position to the
+     * This method calculates the time until the satellite reaches the
      * target location.
+     * It will factor in the satellite's speed, its current trajectory, and the
+     * distance it needs to travel to reach the target location.
+     *
+     * @param targetLocation The target location the satellite is approaching.
+     * @return The estimated time in minutes or hours until the satellite reaches
+     * the target location.
      */
-    public double getDistance(TargetLocation targetLocation){
-        // First, track the satellite's position
-        // Use the current position of the satellite to calculate the
-        // distance between LANDSAT and targetLocation
-        // return the distance
+    public double getTimeUntilTarget(TargetLocation targetLocation){
+
         return 0.0;
     }
 

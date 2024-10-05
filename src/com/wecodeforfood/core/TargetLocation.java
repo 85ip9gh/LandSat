@@ -57,14 +57,17 @@ public class TargetLocation extends Location{
      * @return The distance in kilometers.
      */
     public double getDistanceTo(Location location) {
-        // Calculate the distance using the haversine formula or a similar approach.
+        // Calculate the distance using the haversine formula
         double dLat = Math.toRadians(location.getLatitude() - this.getLatitude());
         double dLon = Math.toRadians(location.getLongitude() - this.getLongitude());
 
         double lat1 = Math.toRadians(this.getLatitude());
         double lat2 = Math.toRadians(location.getLatitude());
 
-        double a = Math.pow(Math.sin(dLat / 2), 2) + Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(dLon / 2), 2);
+        double a = Math.pow(Math.sin(dLat / 2), 2)
+                        + Math.cos(lat1)
+                        * Math.cos(lat2)
+                        * Math.pow(Math.sin(dLon / 2), 2);
         double rad = 6371; // Earth's radius in kilometers
         double c = 2 * Math.asin(Math.sqrt(a));
 
