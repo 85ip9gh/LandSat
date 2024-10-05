@@ -1,6 +1,7 @@
 package com.wecodeforfood.core;
 
 import com.wecodeforfood.util.Trackable;
+import com.wecodeforfood.util.Vector;
 
 
 /**
@@ -42,12 +43,58 @@ public class Landsat implements Trackable {
      * distance it needs to travel to reach the target location.
      *
      * @param targetLocation The target location the satellite is approaching.
-     * @return The estimated time in minutes or hours until the satellite reaches
-     * the target location.
+     * @return The estimated time in hours until the satellite reaches the
+     * target location.
+     *
+     * @author Mac
      */
     public double getTimeUntilTarget(TargetLocation targetLocation){
+        track();
 
-        return 0.0;
+        // Calculate the vector from the current position to the target
+        double deltaX = targetLocation.getLatitude() - currentPosition.getLatitude();
+        double deltaY = targetLocation.getLongitude() - currentPosition.getLongitude();
+
+        // Create vectors for velocity and direction to the target
+        Vector satelliteVelocity = currentPosition.getVelocity();
+        Vector toTarget = new Vector(deltaX, deltaY);
+
+        // Calculate magnitudes
+        double magnitudeVelocity = satelliteVelocity.getMagnitude();
+        double magnitudeTarget = toTarget.getMagnitude();
+
+        // Calculate the dot product between the velocity and the target
+        // direction
+        double dot_product = satelliteVelocity.dotProduct(toTarget);
+
+        // Calculate the angle between the satellite's direction and the target
+        double angle =
+                Math.acos(dot_product/(magnitudeTarget * magnitudeVelocity));
+        double angleInDegrees = Math.toDegrees(angle);
+
+
+        // Calculate Haversine distance
+        double haversineDistance = targetLocation.getDistanceTo(currentPosition);
+
+        // Check if the satellite is moving towards the target within a
+        // threshold, and if the haversineDistance is less than 20, it would
+        // imply the satellite is moving towards the point, and the point is
+        // not on the other side of the earth.
+        if (angleInDegrees < 3.0 && haversineDistance < 20){
+            Vector normalVector = new Vector(0, 0, 1);
+
+            // Calculate the angle between the satellite's velocity vector and the normal vector
+            double normalDotProduct = satelliteVelocity.dotProduct(normalVector);
+            double normalAngle = Math.acos(normalDotProduct / (magnitudeVelocity * normalVector.getMagnitude()));
+            double normalAngleInDegrees = Math.toDegrees(normalAngle);
+
+            // Check if the satellite is directly above the target
+            if (normalAngleInDegrees < 1.0) {
+                double distance = targetLocation.getDistanceTo(currentPosition);
+                return distance / magnitudeVelocity;
+            }
+        }
+        return 16*24;
     }
 
     /**

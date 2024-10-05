@@ -72,4 +72,13 @@ public class TargetLocation {
 
         return rad * c;
     }
+
+    // GETTERS
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
 }
