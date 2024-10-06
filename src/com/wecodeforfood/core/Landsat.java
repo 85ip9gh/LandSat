@@ -2,6 +2,10 @@ package com.wecodeforfood.core;
 
 import com.wecodeforfood.util.SatelliteTracker;
 
+import java.time.Instant;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+
 /**
  * The {@code Landsat} class is a utility class designed to assist with tracking
  * the LANDSAT satellite and fetching data about its position.
@@ -42,14 +46,14 @@ public class Landsat {
      * Fetches the current position data for the LANDSAT satellite using the
      * specified target location as a reference.
      *
-     * <p>This method utilizes the {@link SatelliteTracker} class to retrieve
+     *This method utilizes the {@link SatelliteTracker} class to retrieve
      * the satellite's data from the N2YO API. It updates the internal state
      * based on the latest tracking information.
-     * </p>
      *
      * @param targetLocation The reference location for fetching satellite data.
+     * @author Bhabin Chudal, Sushmita Oli
      */
-    public static void fetchSatelliteData(Location targetLocation) {
+    public static Object[] fetchSatelliteData(Location targetLocation) {
         String response = SatelliteTracker.getData(
                 NORAD_ID,
                 targetLocation.getLatitude(),
@@ -57,6 +61,36 @@ public class Landsat {
                 0,
                 2
         );
-        //Parse Data
+        String[] responseArray = response.split(",");
+
+        double satLattitude = Double.parseDouble(responseArray[11].split(":")[1]);
+        double satLongitude = Double.parseDouble(responseArray[12].split(":")[1]);
+        String unixtimeStamp = responseArray[18].split(":")[1].split("}")[0].trim();
+
+        Long longUnixTimeStamp = Long.parseLong(unixtimeStamp);
+        String stringUTCTime =  Landsat.convertUnixToUTC(longUnixTimeStamp);
+
+        return new Object[]{satLattitude, satLongitude, stringUTCTime};
     }
+
+    /**
+     * Converts the given Unix timestamp, typically used in Landsat data, to a formatted UTC date-time string.
+     *
+     * This method takes a Unix timestamp as input, converts it to an `Instant` object, and then formats
+     * it to a string representing the corresponding date and time in UTC.
+     *
+     * @param unixTimestamp the Unix timestamp to be converted, representing the number of seconds.
+     * @return a `String` representing the date and time in UTC format.
+     * @author Bhabin Chudal, Sushmita Oli
+     */
+    private static String convertUnixToUTC(long unixTimestamp) {
+            // Create an Instant from the Unix timestamp
+            Instant instant = Instant.ofEpochSecond(unixTimestamp);
+
+            // Format the Instant to a UTC string
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+                    .withZone(ZoneOffset.UTC);
+            return formatter.format(instant);
+        }
+
 }
