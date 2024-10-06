@@ -1,6 +1,7 @@
 package com.wecodeforfood.core;
 
 import com.wecodeforfood.util.SatelliteTracker;
+import com.wecodeforfood.util.Notification;
 
 import java.time.Instant;
 import java.time.ZoneOffset;
@@ -34,12 +35,20 @@ public class Landsat {
      */
     public static void displayData() {
     }
-
     /**
      * Sends a notification when the satellite is within a specified range
-     * of the target location.
+     *  of the target location.
+     *
+     * @param targetLocation the Location object representing the target location
+     * @param phoneNumber the phone number to send the notification to
+     * @param timeToReach the time in seconds until the satellite reaches the target location
+     *
+     * @author Aarav Sen Mehta, Mac
      */
-    public static void sendNotification() {
+    public static void sendNotification (Location targetLocation,
+                                         String phoneNumber,
+                                         long timeToReach) {
+        Notification.sendMessage("The LANDSAT satellite is near your location!", phoneNumber, timeToReach);
     }
 
     /**
