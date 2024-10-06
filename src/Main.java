@@ -1,5 +1,5 @@
 import com.wecodeforfood.core.Landsat;
-import com.wecodeforfood.core.TargetLocation;
+import com.wecodeforfood.core.Location;
 import com.wecodeforfood.ui.LandsatSwingApp;
 
 public class Main {
@@ -12,8 +12,7 @@ public class Main {
             double longitude = landsatApp.getLongitude();
             int cloudCoverage = landsatApp.getCloudCoverage();
 
-            Landsat landsat = new Landsat(cloudCoverage);
-            TargetLocation targetLocation = new TargetLocation(latitude, longitude);
+            Location location = new Location(latitude, longitude);
 
             // Handle the submitted values
             System.out.println("Received Values: Latitude: " + latitude + ", Longitude: " + longitude + ", Cloud Coverage: " + cloudCoverage + "%");
