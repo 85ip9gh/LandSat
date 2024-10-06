@@ -34,6 +34,11 @@ public class Main {
 
                     Location location = new Location(latitude, longitude);
 
+                    long timeToReach =
+                            (long) Landsat.fetchSatelliteData(location)[2];
+
+                    Landsat.sendNotification(location, phoneNumber, timeToReach);
+
                     // Handle the submitted values
                     System.out.println("Received Values: Latitude: " + latitude + ", Longitude: " + longitude + ", Cloud Coverage: " + cloudCoverage + "%" + ", Phone Number: " + phoneNumber);
                 }
