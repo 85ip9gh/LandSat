@@ -9,7 +9,6 @@ public class Main {
         SwingUtilities.invokeLater(() -> {
             LandsatSwingApp landsatApp = new LandsatSwingApp(); // Create an instance
 
-            // Create a SwingWorker to wait for form submission
             SwingWorker<Void, Void> worker = new SwingWorker<>() {
                 @Override
                 protected Void doInBackground() throws Exception {

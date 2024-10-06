@@ -217,6 +217,4 @@ public class LandsatSwingApp {
         isSubmitted = false;
     }
 
-
-
 }

@@ -45,10 +45,11 @@ public class Landsat {
     /**
      * Fetches the current position data for the LANDSAT satellite using the
      * specified target location as a reference.
-     *
-     *This method utilizes the {@link SatelliteTracker} class to retrieve
+     * <p>
+     * This method utilizes the {@link SatelliteTracker} class to retrieve
      * the satellite's data from the N2YO API. It updates the internal state
      * based on the latest tracking information.
+     * </p>
      *
      * @param targetLocation The reference location for fetching satellite data.
      * @author Bhabin Chudal, Sushmita Oli
@@ -74,12 +75,14 @@ public class Landsat {
     }
 
     /**
-     * Converts the given Unix timestamp, typically used in Landsat data, to a formatted UTC date-time string.
+     * Converts the given Unix timestamp, typically used in Landsat data,
+     * to a formatted UTC date-time string.
+     * This method takes a Unix timestamp as input, converts it to an `Instant`
+     * object, and then formats it to a string representing the corresponding
+     * date and time in UTC.
      *
-     * This method takes a Unix timestamp as input, converts it to an `Instant` object, and then formats
-     * it to a string representing the corresponding date and time in UTC.
-     *
-     * @param unixTimestamp the Unix timestamp to be converted, representing the number of seconds.
+     * @param unixTimestamp the Unix timestamp to be converted, representing the
+     *                     number of seconds.
      * @return a `String` representing the date and time in UTC format.
      * @author Bhabin Chudal, Sushmita Oli
      */
@@ -92,5 +95,4 @@ public class Landsat {
                     .withZone(ZoneOffset.UTC);
             return formatter.format(instant);
         }
-
 }
