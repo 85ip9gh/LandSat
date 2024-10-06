@@ -73,14 +73,18 @@ public class Landsat {
         );
         String[] responseArray = response.split(",");
 
-        double satLattitude = Double.parseDouble(responseArray[11].split(":")[1]);
-        double satLongitude = Double.parseDouble(responseArray[12].split(":")[1]);
-        String unixtimeStamp = responseArray[18].split(":")[1].split("}")[0].trim();
+        try {
+            double satLattitude = Double.parseDouble(responseArray[11].split(":")[1]);
+            double satLongitude = Double.parseDouble(responseArray[12].split(":")[1]);
+            String unixtimeStamp = responseArray[18].split(":")[1].split("}")[0].trim();
 
-        Long longUnixTimeStamp = Long.parseLong(unixtimeStamp);
-        String stringUTCTime =  Landsat.convertUnixToUTC(longUnixTimeStamp);
-
-        return new Object[]{satLattitude, satLongitude, stringUTCTime};
+            long longUnixTimeStamp = Long.parseLong(unixtimeStamp);
+            String stringUTCTime = Landsat.convertUnixToUTC(longUnixTimeStamp);
+            return new Object[]{satLattitude, satLongitude, stringUTCTime};
+        } catch (Exception e){
+            System.out.println("Something went wrong...");
+        }
+        return new Object[3];
     }
 
     /**
