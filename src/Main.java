@@ -13,11 +13,16 @@ public class Main {
             SwingWorker<Void, Void> worker = new SwingWorker<>() {
                 @Override
                 protected Void doInBackground() throws Exception {
-                    // Wait until the form is submitted
-                    while (!landsatApp.isSubmitted()) {
-                        Thread.sleep(100); // Check every 100ms
+                    while (true) {
+                        // Wait until the form is submitted
+                        while (!landsatApp.isSubmitted()) {
+                            Thread.sleep(100); // Check every 100ms
+                        }
+                        // Reset the submission flag
+                        landsatApp.resetSubmission();
+                        // Call done() method
+                        done();
                     }
-                    return null;
                 }
 
                 @Override

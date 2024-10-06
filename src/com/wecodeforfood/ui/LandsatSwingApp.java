@@ -1,6 +1,5 @@
 package com.wecodeforfood.ui;
 
-import com.formdev.flatlaf.FlatDarculaLaf;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -34,14 +33,6 @@ public class LandsatSwingApp {
     private boolean isSubmitted = false; // Flag to indicate submission
 
     public LandsatSwingApp() {
-        // Set FlatLaf Look and Feel
-        try {
-            UIManager.setLookAndFeel(new FlatDarculaLaf());
-            // Optionally set the system properties if needed
-            // UIManager.put("Button.defaultButtonFollowsFocus", Boolean.TRUE);
-        } catch (Exception e) {
-            e.printStackTrace(); // Print any exception that occurs
-        }
 
         JFrame frame = new JFrame("Landsat Tracker");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -219,9 +210,13 @@ public class LandsatSwingApp {
 
     public boolean isSubmitted() {
         return isSubmitted;
+
     }
 
-//    public static void main(String[] args) {
-//        SwingUtilities.invokeLater(() -> new LandsatSwingApp());
-//    }
+    public void resetSubmission() {
+        isSubmitted = false;
+    }
+
+
+
 }
