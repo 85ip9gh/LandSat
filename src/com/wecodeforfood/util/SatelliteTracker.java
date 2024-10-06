@@ -4,6 +4,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.HashMap;
 
 /**
  * The {@code SatelliteTracker} class provides a method to retrieve
@@ -39,5 +40,6 @@ public class SatelliteTracker {
             System.out.println(e + e.getMessage());
         }
         return null;
+
     }
 }
